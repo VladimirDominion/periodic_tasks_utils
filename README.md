@@ -7,7 +7,7 @@ periodic_tasks_utils is a Python library that allow to control periodic tasks fo
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
 
 ```bash
-pip install /home/vladimir/projects/myntelligence/periodic_tasks_utils/periodic_tasks_utils/pyproject.toml
+pip install https://bitbucket.org/myntelligence_v2/periodic_tasks_utils/
 ```
 
 ## Usage
