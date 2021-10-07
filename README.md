@@ -10,6 +10,16 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
 pip install https://bitbucket.org/myntelligence_v2/periodic_tasks_utils/
 ```
 
+``
+settings.py
+``
+```python
+
+INSTALLED_APPS = [
+    ...,
+    'django_celery_beat',
+]
+```
 ## Usage
 
 ```python
