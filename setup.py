@@ -1,4 +1,5 @@
-from setuptools import setup
+from setuptools import setup, find_packages
+
 
 setup(
     name='periodic_tasks_utils',
@@ -7,7 +8,7 @@ setup(
     url='https://bitbucket.org/myntelligence_v2/periodic_tasks_utils/',
     author='MINT',
     author_email='*@mint.ai',
-    packages=['.'],
+    packages=find_packages(exclude=['tests*']),
     install_requires=[
         'Django==2.2.6',
         'djangorestframework==3.10.3',
