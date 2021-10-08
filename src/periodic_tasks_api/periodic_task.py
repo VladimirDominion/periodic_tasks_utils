@@ -1,5 +1,6 @@
 from django.db.models import F
 from django_celery_beat.models import CrontabSchedule, PeriodicTask
+from django.conf import settings
 
 
 def get_path_to_the_task() -> str:
@@ -7,7 +8,10 @@ def get_path_to_the_task() -> str:
     The Name of the Celery Task that Should be Run.
     (Example: "proj.tasks.import_contacts")
     """
-    raise NotImplementedError
+    path = settings.AUTO_SYNC_TASK_PATH
+    if not path:
+        raise Exception("Auto sync task doesn't have path")
+    return path
 
 
 def get_task_args() -> list:
