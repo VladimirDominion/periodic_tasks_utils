@@ -8,18 +8,10 @@ def get_path_to_the_task() -> str:
     The Name of the Celery Task that Should be Run.
     (Example: "proj.tasks.import_contacts")
     """
-    path = settings.AUTO_SYNC_TASK_PATH
+    path = getattr(settings, "AUTO_SYNC_TASK_PATH", None)
     if not path:
         raise Exception("Auto sync task doesn't have path")
     return path
-
-
-def get_task_args() -> list:
-    return []
-
-
-def get_task_kwargs() -> dict:
-    return {}
 
 
 def create_periodic_task(crontab: CrontabSchedule, row_id: int):
@@ -28,24 +20,19 @@ def create_periodic_task(crontab: CrontabSchedule, row_id: int):
             task=get_path_to_the_task(),
             crontab=crontab,
             name=f"{row_id}-{crontab.id}",
-            args=get_task_args(),
-            kwargs=get_task_kwargs(),
+            args=row_id,
         )
     except Exception as e:
         return {"create_periodic_task": f"{e}"}
 
 
 def get_periodic_task(row_id):
-    return (
-        PeriodicTask.objects.filter(name__startswith=row_id)
-        .select_related("crontab")
-        .values(
-            "name",
-            "crontab_id",
-            timezone=F("crontab__timezone"),
-            hour=F("crontab__hour"),
-            minute=F("crontab__minute"),
-        )
+    return PeriodicTask.objects.filter(args=row_id).values(
+        "name",
+        "crontab_id",
+        timezone=F("crontab__timezone"),
+        hour=F("crontab__hour"),
+        minute=F("crontab__minute"),
     )
 
 
