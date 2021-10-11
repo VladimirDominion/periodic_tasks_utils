@@ -4,12 +4,12 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from serializers import (
+from .serializers import (
     AutoSyncInputSerializer,
     AutoSyncRetrieveSerializer,
     AutoSyncDeleteSerializer,
 )
-from periodic_task import create_periodic_task, get_periodic_task, delete_periodic_task
+from .periodic_task import create_periodic_task, get_periodic_task, delete_periodic_task
 
 
 class AutoSyncView(APIView):
