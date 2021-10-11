@@ -1,3 +1,5 @@
+import json
+
 from django.db.models import F
 from django_celery_beat.models import PeriodicTask
 from django.conf import settings
@@ -23,15 +25,14 @@ def create_periodic_task(minute: int, hour: int, timezone: str, row_id: int):
             task=get_path_to_the_task(),
             crontab=crontab,
             name=f"{row_id}-{crontab.id}",
-            args=row_id,
+            args=json.dumps([row_id]),
         )
     except Exception as e:
         return {"create_periodic_task": f"{e}"}
 
 
 def get_periodic_task(row_id):
-    return PeriodicTask.objects.filter(args=row_id).values(
-        "args",
+    return PeriodicTask.objects.filter(args=f"[{row_id}]").values(
         "crontab_id",
         timezone=F("crontab__timezone"),
         hour=F("crontab__hour"),
@@ -40,4 +41,4 @@ def get_periodic_task(row_id):
 
 
 def delete_periodic_task(row_id, crontab_id):
-    PeriodicTask.objects.filter(args=row_id, crontab_id=crontab_id).delete()
+    PeriodicTask.objects.filter(args=f"[{row_id}]", crontab_id=crontab_id).delete()

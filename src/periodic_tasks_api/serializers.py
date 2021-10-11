@@ -9,7 +9,6 @@ class AutoSyncInputSerializer(serializers.Serializer):  # noqa
 
 
 class AutoSyncRetrieveSerializer(serializers.Serializer):  # noqa
-    row_id = serializers.IntegerField(source="args")
     crontab_id = serializers.IntegerField()
     timezone = serializers.CharField()
     hour = serializers.IntegerField()
