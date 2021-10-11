@@ -9,7 +9,7 @@ class AutoSyncInputSerializer(serializers.Serializer):  # noqa
 
 
 class AutoSyncRetrieveSerializer(serializers.Serializer):  # noqa
-    task_name = serializers.CharField(source="name")
+    row_id = serializers.IntegerField(source="args")
     crontab_id = serializers.IntegerField()
     timezone = serializers.CharField()
     hour = serializers.IntegerField()
@@ -17,4 +17,5 @@ class AutoSyncRetrieveSerializer(serializers.Serializer):  # noqa
 
 
 class AutoSyncDeleteSerializer(serializers.Serializer):  # noqa
-    task_name = serializers.CharField()
+    row_id = serializers.IntegerField()
+    crontab_id = serializers.IntegerField()

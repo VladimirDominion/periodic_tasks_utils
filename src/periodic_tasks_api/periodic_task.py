@@ -1,6 +1,8 @@
 from django.db.models import F
-from django_celery_beat.models import CrontabSchedule, PeriodicTask
+from django_celery_beat.models import PeriodicTask
 from django.conf import settings
+
+from crontab import get_crontab_instance
 
 
 def get_path_to_the_task() -> str:
@@ -14,8 +16,9 @@ def get_path_to_the_task() -> str:
     return path
 
 
-def create_periodic_task(crontab: CrontabSchedule, row_id: int):
+def create_periodic_task(minute: int, hour: int, timezone: str, row_id: int):
     try:
+        crontab = get_crontab_instance(minute, hour, timezone)
         PeriodicTask.objects.create(
             task=get_path_to_the_task(),
             crontab=crontab,
@@ -28,7 +31,7 @@ def create_periodic_task(crontab: CrontabSchedule, row_id: int):
 
 def get_periodic_task(row_id):
     return PeriodicTask.objects.filter(args=row_id).values(
-        "name",
+        "args",
         "crontab_id",
         timezone=F("crontab__timezone"),
         hour=F("crontab__hour"),
@@ -36,5 +39,5 @@ def get_periodic_task(row_id):
     )
 
 
-def delete_periodic_task(task_name):
-    PeriodicTask.objects.filter(name=task_name).delete()
+def delete_periodic_task(row_id, crontab_id):
+    PeriodicTask.objects.filter(args=row_id, crontab_id=crontab_id).delete()

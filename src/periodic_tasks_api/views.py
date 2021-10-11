@@ -8,7 +8,6 @@ from .serializers import (
     AutoSyncRetrieveSerializer,
     AutoSyncDeleteSerializer,
 )
-from .crontab import get_crontab_instance
 from .periodic_task import create_periodic_task, get_periodic_task, delete_periodic_task
 
 
@@ -25,11 +24,7 @@ class AutoSyncView(APIView):
     def post(self, request):
         serializer = AutoSyncInputSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        validated_data = serializer.validated_data
-        crontab = get_crontab_instance(
-            hour=validated_data["hour"], minute=validated_data["minute"], timezone=validated_data["timezone"]
-        )
-        error = create_periodic_task(crontab=crontab, row_id=validated_data["row_id"])
+        error = create_periodic_task(**serializer.validated_data)
         return Response({"error": error})
 
     def delete(self, request):
