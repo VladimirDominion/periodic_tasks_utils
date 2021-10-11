@@ -4,7 +4,7 @@ from django.db.models import F
 from django_celery_beat.models import PeriodicTask
 from django.conf import settings
 
-from crontab import get_crontab_instance
+from .crontab import get_crontab_instance
 
 
 def get_path_to_the_task() -> str:
