@@ -39,3 +39,11 @@ urlpatterns = [
     path('', include("periodic_tasks_api.urls")) 
 ]
 ```
+##Methods
+
+
+- GET - return list of tasks for the row(use with ``row_id=value`` query
+params);
+- POST - create periodic task(default time zone is UTC);
+- DELETE  - remove periodic task;
+- OPTIONS - return list of available time zones;
