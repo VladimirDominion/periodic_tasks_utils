@@ -25,8 +25,17 @@ AUTO_SYNC_TASK_PATH = 'proj.tasks.task_name'
 ## Usage
 
 ```python
-from periodic_tasks_utils.views import ...
-from periodic_tasks_utils.serializers import ...
-from periodic_tasks_utils.urls import ...
+from periodic_tasks_utils.views import AutoSyncView
 
+urlpatterns = [
+    path('route_name/', AutoSyncView.as_view())
+]
+```
+
+or with default ``auto-sync/`` url:
+
+```python
+urlpatterns = [
+    path('', include("periodic_tasks_api.urls")) 
+]
 ```
