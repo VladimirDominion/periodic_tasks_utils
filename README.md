@@ -39,8 +39,7 @@ urlpatterns = [
     path('', include("periodic_tasks_api.urls")) 
 ]
 ```
-##Methods
-
+## Methods
 
 - GET - return list of tasks for the row(use with ``row_id=value`` query
 params);
