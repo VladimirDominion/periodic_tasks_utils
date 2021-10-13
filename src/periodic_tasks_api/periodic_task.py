@@ -1,10 +1,11 @@
 import json
 
+from django.core.exceptions import ValidationError
 from django.db.models import F
 from django_celery_beat.models import PeriodicTask
 from django.conf import settings
 
-from .crontab import get_crontab_instance
+from periodic_tasks_api.crontab import get_crontab_instance
 
 
 def get_path_to_the_task() -> str:
@@ -14,7 +15,7 @@ def get_path_to_the_task() -> str:
     """
     path = getattr(settings, "AUTO_SYNC_TASK_PATH", None)
     if not path:
-        raise Exception("Auto sync task doesn't have path")
+        raise ValidationError("Auto sync task doesn't have path")
     return path
 
 
@@ -27,7 +28,7 @@ def create_periodic_task(minute: int, hour: int, timezone: str, row_id: int):
             name=f"{row_id}-{crontab.id}",
             args=json.dumps([row_id]),
         )
-    except Exception as e:
+    except ValidationError as e:
         return {"create_periodic_task": f"{e}"}
 
 
