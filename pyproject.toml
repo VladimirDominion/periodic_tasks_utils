@@ -14,8 +14,8 @@ documentation = "https://bitbucket.org/myntelligence_v2/periodic_tasks_utils/"
 
 # Requirements
 [dependencies]
-Django = "2.2.6"
-djangorestframework = "3.10.3"
+Django = "*"
+djangorestframework = "*"
 django-celery-beat = "2.2.1"
 
 

@@ -10,8 +10,8 @@ setup(
     author_email='*@mint.ai',
     packages=find_packages(exclude=['tests*']),
     install_requires=[
-        'Django==2.2.6',
-        'djangorestframework==3.10.3',
+        'Django',
+        'djangorestframework',
         'django-celery-beat==2.2.1',
         'black>=21.7b0',
     ],
