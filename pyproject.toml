@@ -3,7 +3,7 @@ name = "periodic_tasks_utils"
 version = "1.0.0"
 description = "Utils that allow to control periodic tasks for django-celery-beat."
 authors = [
-    "Martin Thoma <*@mint.ai>"
+    "* <*@mint.ai>"
 ]
 license = "MINT"
 readme = "README.md"
