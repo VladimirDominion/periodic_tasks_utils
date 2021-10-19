@@ -37,9 +37,50 @@ urlpatterns = [
         include("periodic_tasks_api.urls"),
     ),
 ]
-```
 
 celery --app=<your_app> beat --scheduler periodic_tasks_api.schedulers.CustomDatabaseScheduler
+```
+
+```
+## API call examples:
+POST /periodic_task/
+```json
+{
+    "kwargs": {"row_id": 821},
+    "enabled": true,
+    "description": "",
+    "task_type": "auto-sync",
+    "cron_tab_data": {
+        "minute": 0,
+        "hour": 7,
+        "timezone": "UTC"
+    }
+}
+```
+
+```json
+{
+    "kwargs": {"row_id": 821},
+    "enabled": false,
+    "description": "",
+    "task_type": "auto-sync"
+}
+```
+
+PUT /periodic_task/<id>/
+<body>
+```json
+{
+    "kwargs": {"row_id": 821},
+    "enabled": true,
+    "description": "",
+    "task_type": "auto-sync"
+}
+```
+
+DELETE /periodic_task/<id>/
+
+```
 
 ## Methods
 
