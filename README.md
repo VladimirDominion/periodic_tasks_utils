@@ -80,6 +80,21 @@ PUT /periodic_task/<id>/
 
 DELETE /periodic_task/<id>/
 
+
+PERIODIC_TASK_API_CONFIG = [
+    {
+        "task_type": "auto-sync", # required
+        "path_to_task": "audience.tasks.run_pii_audiences_update", # required
+        "kwargs_serializer":  'rest_framework.serializers.Serializer', # optional but recommended
+        "label": "Auto sync task", # optional,
+        "cron_tab_data": {
+            "minute": 0,
+            "hour": 6,
+            "timezone": "UTC",
+        } # Temporary required
+    }
+]
+
 ```
 
 ## Methods
