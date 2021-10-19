@@ -1,7 +1,13 @@
-from django.urls import path
+from rest_framework.routers import DefaultRouter
 
-from periodic_tasks_api.views import AutoSyncView
+from periodic_tasks_api.views import PeriodicTaskView
 
-urlpatterns = [
-    path('auto-sync/', AutoSyncView.as_view())
-]
+
+router = DefaultRouter()
+router.register(
+    r'periodic_task',
+    PeriodicTaskView,
+    basename='periodic-tasks'
+)
+
+urlpatterns = [] + router.urls

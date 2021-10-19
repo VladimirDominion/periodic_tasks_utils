@@ -18,6 +18,7 @@ settings.py
 INSTALLED_APPS = [
     ...,
     'django_celery_beat',
+    'periodic_tasks_api'
 ]
 
 AUTO_SYNC_TASK_PATH = 'proj.tasks.task_name'
@@ -25,24 +26,25 @@ AUTO_SYNC_TASK_PATH = 'proj.tasks.task_name'
 ## Usage
 
 ```python
-from periodic_tasks_utils.views import AutoSyncView
 
-urlpatterns = [
-    path('route_name/', AutoSyncView.as_view())
-]
-```
+``auto-sync/`` url:
 
-or with default ``auto-sync/`` url:
 
 ```python
 urlpatterns = [
-    path('', include("periodic_tasks_api.urls")) 
+    url(
+        r'^api/your_service/V1/',
+        include("periodic_tasks_api.urls"),
+    ),
 ]
 ```
+
+celery --app=<your_app> beat --scheduler periodic_tasks_api.schedulers.CustomDatabaseScheduler
+
 ## Methods
 
-- GET - return list of tasks for the row(use with ``row_id=value`` query
-params);
-- POST - create periodic task(default time zone is UTC);
+- GET - return list of tasks (Filter by row_id: use with ``row_id=value`` query params);
+- POST - create periodic task(cron tab support only);
+- PUT - update periodic task fields
 - DELETE  - remove periodic task;
-- OPTIONS - return list of available time zones;
+- OPTIONS - return structure of object and field choices;

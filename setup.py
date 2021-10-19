@@ -12,6 +12,8 @@ setup(
     install_requires=[
         'Django',
         'djangorestframework',
+        'pytz',
+        'myn_utils',
         'django-celery-beat==2.2.1',
         'black>=21.7b0',
     ],
