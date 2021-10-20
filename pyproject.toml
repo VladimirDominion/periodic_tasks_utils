@@ -1,0 +1,37 @@
+[periodic_tasks_utils]
+name = "periodic_tasks_utils"
+version = "1.0.0"
+description = "Utils that allow to control periodic tasks for django-celery-beat."
+authors = [
+    "* <*@mint.ai>"
+]
+license = "MINT"
+readme = "README.md"
+python = "^3.7"
+homepage = "https://bitbucket.org/myntelligence_v2/periodic_tasks_utils/"
+repository = "https://bitbucket.org/myntelligence_v2/periodic_tasks_utils/"
+documentation = "https://bitbucket.org/myntelligence_v2/periodic_tasks_utils/"
+
+# Requirements
+[dependencies]
+Django = "*"
+djangorestframework = "*"
+pytz = "*"
+myn_utils = "*"
+django-celery-beat = "2.2.1"
+
+
+[dev-dependencies]
+black = { version = "^21.7b0", python = "^3.7" }
+
+[build-system]
+requires = [
+    "setuptools >= 35.0.2",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+target-version = ['py37']
+skip-string-normalization = true
+line-length = 120
+exclude = '''^.*\b(migrations)\b.*$'''
