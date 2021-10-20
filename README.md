@@ -102,7 +102,7 @@ PERIODIC_TASK_API_CONFIG = [
 
 ## Methods
 
-- GET - return list of tasks (Filter by row_id: use with ``row_id=value`` query params);
+- GET - return list of tasks (Filter by jkwargs__<field_in_kwargs>, and filtering by other model fields);
 - POST - create periodic task(cron tab support only);
 - PUT - update periodic task fields
 - DELETE  - remove periodic task;
