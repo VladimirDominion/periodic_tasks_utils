@@ -21,7 +21,6 @@ INSTALLED_APPS = [
     'periodic_tasks_api'
 ]
 
-AUTO_SYNC_TASK_PATH = 'proj.tasks.task_name'
 ```
 ## Usage
 
@@ -43,6 +42,8 @@ celery --app=<your_app> beat --scheduler periodic_tasks_api.schedulers.CustomDat
 
 ```
 ## API call examples:
+GET /periodic_task/?task_type__in=auto-sync&task_type__in=email&jkwargs__row_id=821
+
 POST /periodic_task/
 ```json
 {
@@ -96,6 +97,8 @@ PERIODIC_TASK_API_CONFIG = [
 ]
 
 ```
+
+# VERY IMPORTANT - UI should save values to kwargs as STRINGS, otherwise filtering will not work.
 
 ## Methods
 
