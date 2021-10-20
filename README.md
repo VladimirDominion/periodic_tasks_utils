@@ -100,6 +100,9 @@ PERIODIC_TASK_API_CONFIG = [
 
 ```
 
+```python
+python manage.py get_or_create_periodic_tasks
+
 # VERY IMPORTANT - UI should save values to kwargs as STRINGS, otherwise filtering will not work.
 
 ## Methods
