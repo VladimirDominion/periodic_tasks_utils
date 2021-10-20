@@ -20,10 +20,6 @@ pytz = "*"
 myn_utils = "*"
 django-celery-beat = "2.2.1"
 
-
-[dev-dependencies]
-black = { version = "^21.7b0", python = "^3.7" }
-
 [build-system]
 requires = [
     "setuptools >= 35.0.2",

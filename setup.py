@@ -15,7 +15,7 @@ setup(
         'pytz',
         'myn_utils',
         'django-celery-beat==2.2.1',
-        'black>=21.7b0',
+        'black',
     ],
     classifiers=[
         'Programming Language :: Python :: 3.7',
