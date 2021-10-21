@@ -8,9 +8,7 @@ from django_celery_beat.models import PeriodicTask
 
 from periodic_tasks_api.serializers import PeriodicTaskSerializer
 
-from periodic_tasks_api.utils import (
-    get_config_by_task_type, get_entity_from_path_string
-)
+from periodic_tasks_api.utils import get_config_by_task_type, get_entity_from_path_string
 
 
 class Command(BaseCommand):
@@ -28,7 +26,11 @@ class Command(BaseCommand):
         created_rows = []
         existed_rows = []
         for row_id in row_ids:
-            periodic_task = PeriodicTask.objects.all().annotate(jkwargs=Cast(F('kwargs'), JSONField())).filter(jkwargs__row_id=str(row_id))
+            periodic_task = (
+                PeriodicTask.objects.all()
+                .annotate(jkwargs=Cast(F('kwargs'), JSONField()))
+                .filter(jkwargs__row_id=str(row_id))
+            )
             if periodic_task:
                 existed_rows.append(row_id)
                 continue

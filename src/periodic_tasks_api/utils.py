@@ -27,8 +27,10 @@ def get_config_by_task_type(task_type):
 def get_task_type_choices_from_config(context):
     choices = []
     for task_config in get_periodic_tasks_config():
-        choices.append((
-            task_config.get("task_type"),
-            task_config.get("label") or task_config.get("task_type").replace('-', ' ').lower().capitalize()
-        ))
+        choices.append(
+            (
+                task_config.get("task_type"),
+                task_config.get("label") or task_config.get("task_type").replace('-', ' ').lower().capitalize(),
+            )
+        )
     return choices

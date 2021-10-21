@@ -4,10 +4,6 @@ from periodic_tasks_api.views import PeriodicTaskView
 
 
 router = DefaultRouter()
-router.register(
-    r'periodic_task',
-    PeriodicTaskView,
-    basename='periodic-tasks'
-)
+router.register(r'periodic_task', PeriodicTaskView, basename='periodic-tasks')
 
 urlpatterns = [] + router.urls

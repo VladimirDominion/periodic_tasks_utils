@@ -9,7 +9,9 @@ from django_celery_beat.models import CrontabSchedule
 from myn_utils.rest_framework.fields import LazyChoiceField
 
 from periodic_tasks_api.utils import (
-    get_config_by_task_type, get_task_type_choices_from_config, get_entity_from_path_string
+    get_config_by_task_type,
+    get_task_type_choices_from_config,
+    get_entity_from_path_string,
 )
 from periodic_tasks_api.models import CustomExtendedPeriodicTask
 
