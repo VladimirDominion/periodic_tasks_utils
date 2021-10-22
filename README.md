@@ -81,7 +81,7 @@ PUT /periodic_task/<id>/
 
 DELETE /periodic_task/<id>/
 
-
+```python
 PERIODIC_TASK_API_CONFIG = [
     {
         "task_type": "auto-sync",  # required
