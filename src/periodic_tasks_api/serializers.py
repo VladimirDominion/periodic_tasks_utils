@@ -52,7 +52,8 @@ class PeriodicTaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomExtendedPeriodicTask
-        fields = ('id', 'kwargs', 'enabled', 'description', 'task_type', 'cron_tab_data')
+        fields = ('id', 'kwargs', 'enabled', 'description', 'task_type', 'cron_tab_data', 'last_run_at')
+        read_only_fields = ('last_run_at',)
 
     def validate(self, attrs):
         self.config = get_config_by_task_type(attrs.get("task_type"))
