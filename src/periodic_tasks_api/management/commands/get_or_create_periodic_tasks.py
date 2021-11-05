@@ -21,7 +21,7 @@ class Command(BaseCommand):
         config = get_config_by_task_type(self.task_type)
         command_model = get_entity_from_path_string(config.get("command_model"))
         command_field_key = config.get("command_field_key")
-        row_ids = command_model.objects.values(command_field_key).distinct().values_list(flat=True)
+        row_ids = command_model.objects.values_list(command_field_key,flat=True).distinct()
 
         created_rows = []
         existed_rows = []
