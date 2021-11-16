@@ -15,6 +15,7 @@ setup(
         'pytz',
         'myn_utils',
         'django-celery-beat==2.2.1',
+        'croniter==1.0.15',
     ],
     classifiers=[
         'Programming Language :: Python :: 3.7',

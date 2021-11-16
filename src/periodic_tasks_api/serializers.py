@@ -12,6 +12,8 @@ from periodic_tasks_api.utils import (
     get_config_by_task_type,
     get_task_type_choices_from_config,
     get_entity_from_path_string,
+    get_next_execution_time_from_crontab_string,
+    convert_crontab_instance_to_string,
 )
 from periodic_tasks_api.models import CustomExtendedPeriodicTask
 
@@ -43,6 +45,8 @@ class PeriodicTaskSerializer(serializers.ModelSerializer):
 
     cron_tab_data = CronTabSerializer(required=False)
 
+    next_execution_time = serializers.SerializerMethodField()
+
     _nested_serializers = {
         "cron_tab_data": {
             'periodic_task_time_key': 'crontab_id',
@@ -52,8 +56,19 @@ class PeriodicTaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomExtendedPeriodicTask
-        fields = ('id', 'kwargs', 'enabled', 'description', 'task_type', 'cron_tab_data', 'last_run_at')
+        fields = (
+            'id', 'kwargs', 'enabled', 'description', 'task_type', 'cron_tab_data', 'last_run_at',
+            'next_execution_time'
+        )
         read_only_fields = ('last_run_at',)
+
+    def get_next_execution_time(self, periodic_task):
+        """ return date time string in iso format """
+        # TODO extend it for another schedulers
+        if not periodic_task.crontab:
+            return
+        crontab_string = convert_crontab_instance_to_string(periodic_task.crontab)
+        return get_next_execution_time_from_crontab_string(crontab_string)
 
     def validate(self, attrs):
         self.config = get_config_by_task_type(attrs.get("task_type"))

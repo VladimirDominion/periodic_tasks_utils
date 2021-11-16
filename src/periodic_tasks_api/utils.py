@@ -1,7 +1,10 @@
 import importlib
+import datetime
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.utils import timezone
+import croniter
 
 
 def get_entity_from_path_string(entity_path):
@@ -34,3 +37,20 @@ def get_task_type_choices_from_config(context):
             )
         )
     return choices
+
+
+def get_next_execution_time_from_crontab_string(crontab_string) -> str:
+    """ Convert cron tab string to iso format string """
+    now = timezone.now()
+    cron = croniter.croniter(crontab_string, now)
+    return cron.get_next(datetime.datetime).isoformat()
+
+
+def convert_crontab_instance_to_string(crontab_instance) -> str:
+    return "{minute} {hour} {day_of_month} {month_of_year} {day_of_week}".format(
+        minute=crontab_instance.minute,
+        hour=crontab_instance.hour,
+        day_of_month=crontab_instance.day_of_month,
+        month_of_year=crontab_instance.month_of_year,
+        day_of_week=crontab_instance.day_of_week,
+    )
