@@ -68,7 +68,9 @@ class PeriodicTaskSerializer(serializers.ModelSerializer):
         if not periodic_task.crontab:
             return
         crontab_string = convert_crontab_instance_to_string(periodic_task.crontab)
-        return get_next_execution_time_from_crontab_string(crontab_string)
+        return get_next_execution_time_from_crontab_string(
+            crontab_string, periodic_task.crontab.timezone
+        )
 
     def validate(self, attrs):
         self.config = get_config_by_task_type(attrs.get("task_type"))
