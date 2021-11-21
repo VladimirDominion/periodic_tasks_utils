@@ -7,7 +7,6 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 
 
-
 def get_entity_from_path_string(entity_path):
     mod_name, entity_name = entity_path.rsplit('.', 1)
     mod = importlib.import_module(mod_name)
