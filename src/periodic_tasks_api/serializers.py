@@ -12,8 +12,7 @@ from periodic_tasks_api.utils import (
     get_config_by_task_type,
     get_task_type_choices_from_config,
     get_entity_from_path_string,
-    get_next_execution_time_from_crontab_string,
-    convert_crontab_instance_to_string,
+    get_next_execution_time_of_crontab,
 )
 from periodic_tasks_api.models import CustomExtendedPeriodicTask
 
@@ -67,9 +66,8 @@ class PeriodicTaskSerializer(serializers.ModelSerializer):
         # TODO extend it for another schedulers
         if not periodic_task.crontab:
             return
-        crontab_string = convert_crontab_instance_to_string(periodic_task.crontab)
-        return get_next_execution_time_from_crontab_string(
-            crontab_string, periodic_task.crontab.timezone
+        return get_next_execution_time_of_crontab(
+            periodic_task.crontab
         )
 
     def validate(self, attrs):
